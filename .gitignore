@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Lokaal opgebouwde DB — schema.sql + seed.sql zijn de bron
+inventory.db
+
+# Secrets — alleen .env.example mag in git
+.env
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
