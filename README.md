@@ -1,6 +1,6 @@
 # Network as Code — IOS-XE baseline via SQLite, GitHub & NETCONF
 
-Praktische proef PE Networks (PXL) — Andries Soons — opleveringsdatum **18 mei 2026**.
+Praktische proef PE Networks (PXL) — Andries Soons en Quanah Siaens — opleveringsdatum **18 mei 2026**.
 
 Eén declaratieve YANG-payload met tien LAB 8.2-taken, gerenderd vanuit een
 SQLite-bron, versiebeheerd in GitHub en uitgerold via NETCONF op een
