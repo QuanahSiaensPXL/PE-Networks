@@ -4,7 +4,7 @@
 -- =============================================================
 
 INSERT INTO devices (name, mgmt_host, netconf_port, platform, credential_ref, description)
-VALUES ('R1', '192.168.56.10', 830, 'iosxe', 'R1_NETCONF', 'CSR1000v lab-router (host-only)');
+VALUES ('R1', '192.168.253.20', 830, 'iosxe', 'R1_NETCONF', 'CSR1000v lab-router (NAT 192.168.253.0/24)');
 
 -- Tabel-driven taken 4 & 5: interfaces
 INSERT INTO interfaces (device_id, name, description, ipv4_address, ipv4_netmask, enabled) VALUES
