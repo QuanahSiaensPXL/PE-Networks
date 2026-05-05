@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <hostname>R1</hostname>
+  <banner>
+    <motd>
+      <banner>Unauthorized access is prohibited!</banner>
+    </motd>
+  </banner>
+  <interface>
+    <Loopback>
+      <name>0</name>
+      <ip>
+        <address>
+          <primary>
+            <address>1.1.1.1</address>
+            <mask>255.255.255.255</mask>
+          </primary>
+        </address>
+      </ip>
+    </Loopback>
+    <GigabitEthernet>
+      <name>2</name>
+      <description>Link naar VLAN 10 - data</description>
+      <ip>
+        <address>
+          <primary>
+            <address>10.10.10.1</address>
+            <mask>255.255.255.0</mask>
+          </primary>
+        </address>
+      </ip>
+    </GigabitEthernet>
+    <GigabitEthernet>
+      <name>3</name>
+      <description>Link naar VLAN 20 - voice</description>
+      <ip>
+        <address>
+          <primary>
+            <address>10.10.20.1</address>
+            <mask>255.255.255.0</mask>
+          </primary>
+        </address>
+      </ip>
+    </GigabitEthernet>
+  </interface>
+  <ntp>
+    <server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
+      <server-list>
+        <ip-address>129.6.15.28</ip-address>
+      </server-list>
+    </server>
+  </ntp>
+  <ip>
+    <name-server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ip">
+      <no-vrf>8.8.8.8</no-vrf>
+    </name-server>
+    <route>
+      <ip-route-interface-forwarding-list>
+        <prefix>10.99.0.0</prefix>
+        <mask>255.255.255.0</mask>
+        <fwd-list>
+          <fwd>10.10.10.254</fwd>
+        </fwd-list>
+      </ip-route-interface-forwarding-list>
+    </route>
+  </ip>
+  <router>
+    <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+      <ospf>
+        <process-id>
+          <id>1</id>
+          <network>
+            <ip>0.0.0.0</ip>
+            <wildcard>255.255.255.255</wildcard>
+            <area>0</area>
+          </network>
+        </process-id>
+      </ospf>
+    </router-ospf>
+  </router>
+  <vlan>
+    <vlan-list>
+      <id>10</id>
+      <name>DATA</name>
+    </vlan-list>
+    <vlan-list>
+      <id>20</id>
+      <name>VOICE</name>
+    </vlan-list>
+  </vlan>
+</native>
