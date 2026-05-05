@@ -1,0 +1,15 @@
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <ip>
+    <route>
+      {% for route in static_routes %}
+      <ip-route-interface-forwarding-list>
+        <prefix>{{ route.destination }}</prefix>
+        <mask>{{ route.mask }}</mask>
+        <fwd-list>
+          <fwd>{{ route.next_hop }}</fwd>
+        </fwd-list>
+      </ip-route-interface-forwarding-list>
+      {% endfor %}
+    </route>
+  </ip>
+</native>

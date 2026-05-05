@@ -1,0 +1,19 @@
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <interface>
+    {% for intf in interfaces %}
+    <GigabitEthernet>
+      <name>{{ intf.name }}</name>
+      <ip>
+        <address>
+          <primary>
+            <address>{{ intf.ip_address }}</address>
+            <mask>{{ intf.subnet_mask }}</mask>
+          </primary>
+        </address>
+      </ip>
+      <description>{{ intf.description }}</description>
+      <no_shutdown>true</no_shutdown>
+    </GigabitEthernet>
+    {% endfor %}
+  </interface>
+</native>
