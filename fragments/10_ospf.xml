@@ -1,0 +1,12 @@
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <router>
+    <ospf>
+      <id>1</id>
+      <network>
+        <ip>0.0.0.0</ip>
+        <wildcard>255.255.255.255</wildcard>
+        <area>0</area>
+      </network>
+    </ospf>
+  </router>
+</native>
