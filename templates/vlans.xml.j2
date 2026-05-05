@@ -1,10 +1,10 @@
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
   <vlan>
+    {% for vlan in vlans %}
     <vlan-list>
-      {% for vlan in vlans %}
-      <id>{{ vlan.id }}</id>
-      <name>{{ vlan.name }}</name>
-      {% endfor %}
+      <id>{{ vlan.vlan_id }}</id>
+      <name>{{ vlan.vlan_name }}</name>
     </vlan-list>
+    {% endfor %}
   </vlan>
 </native>

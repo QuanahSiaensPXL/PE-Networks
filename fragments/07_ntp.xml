@@ -1,7 +1,9 @@
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
   <ntp>
-    <server>
-      <ip-address>129.6.15.28</ip-address>
+    <server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
+      <server-list>
+        <ip-address>129.6.15.28</ip-address>
+      </server-list>
     </server>
   </ntp>
 </native>

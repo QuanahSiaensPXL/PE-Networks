@@ -3,8 +3,8 @@
     <route>
       {% for route in static_routes %}
       <ip-route-interface-forwarding-list>
-        <prefix>{{ route.destination }}</prefix>
-        <mask>{{ route.mask }}</mask>
+        <prefix>{{ route.dest_prefix }}</prefix>
+        <mask>{{ route.dest_netmask }}</mask>
         <fwd-list>
           <fwd>{{ route.next_hop }}</fwd>
         </fwd-list>

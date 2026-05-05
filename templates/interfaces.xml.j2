@@ -2,17 +2,19 @@
   <interface>
     {% for intf in interfaces %}
     <GigabitEthernet>
-      <name>{{ intf.name }}</name>
+      <name>{{ intf.name | replace("GigabitEthernet", "") }}</name>
+      <description>{{ intf.description }}</description>
       <ip>
         <address>
           <primary>
-            <address>{{ intf.ip_address }}</address>
-            <mask>{{ intf.subnet_mask }}</mask>
+            <address>{{ intf.ipv4_address }}</address>
+            <mask>{{ intf.ipv4_netmask }}</mask>
           </primary>
         </address>
       </ip>
-      <description>{{ intf.description }}</description>
-      <no_shutdown>true</no_shutdown>
+      {% if not intf.enabled %}
+      <shutdown/>
+      {% endif %}
     </GigabitEthernet>
     {% endfor %}
   </interface>
