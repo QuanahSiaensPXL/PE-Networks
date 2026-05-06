@@ -1,0 +1,32 @@
+# Versiebeheer — niet nodig in de image
+.git
+.gitignore
+
+# Python / virtual env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets — alleen via runtime env-vars of mounted volume
+.env
+
+# Lokale build-output — DB wordt in de Dockerfile opnieuw opgebouwd
+inventory.db
+configs/generated/
+
+# Tests + dev-only bestanden — niet nodig voor productie-runtime
+tests/
+.pytest_cache/
+requirements_dev.txt
+
+# Docs en losse patches
+*.md
+*.patch
