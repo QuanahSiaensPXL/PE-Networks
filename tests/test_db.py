@@ -37,7 +37,7 @@ def test_fetch_device_data_returns_full_structure(patched_db_path: Path):
 
     # Device-info matcht seed.sql
     assert data["device"]["name"] == "R1"
-    assert data["device"]["mgmt_host"] == "192.168.253.20"
+    assert data["device"]["mgmt_host"] == "192.168.253.131"
     assert data["device"]["netconf_port"] == 830
     assert data["device"]["platform"] == "iosxe"
     assert data["device"]["credential_ref"] == "R1_NETCONF"

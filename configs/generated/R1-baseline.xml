@@ -18,30 +18,30 @@
         </address>
       </ip>
     </Loopback>
-    <GigabitEthernet>
-      <name>2</name>
-      <description>Link naar VLAN 10 - data</description>
+    <Loopback>
+      <name>1</name>
+      <description>Demo loopback - data segment</description>
       <ip>
         <address>
           <primary>
             <address>10.10.10.1</address>
-            <mask>255.255.255.0</mask>
+            <mask>255.255.255.255</mask>
           </primary>
         </address>
       </ip>
-    </GigabitEthernet>
-    <GigabitEthernet>
-      <name>3</name>
-      <description>Link naar VLAN 20 - voice</description>
+    </Loopback>
+    <Loopback>
+      <name>2</name>
+      <description>Demo loopback - voice segment</description>
       <ip>
         <address>
           <primary>
             <address>10.10.20.1</address>
-            <mask>255.255.255.0</mask>
+            <mask>255.255.255.255</mask>
           </primary>
         </address>
       </ip>
-    </GigabitEthernet>
+    </Loopback>
   </interface>
   <ntp>
     <server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
@@ -51,7 +51,7 @@
     </server>
   </ntp>
   <ip>
-    <name-server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ip">
+    <name-server>
       <no-vrf>8.8.8.8</no-vrf>
     </name-server>
     <route>
@@ -65,27 +65,13 @@
     </route>
   </ip>
   <router>
-    <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
-      <ospf>
-        <process-id>
-          <id>1</id>
-          <network>
-            <ip>0.0.0.0</ip>
-            <wildcard>255.255.255.255</wildcard>
-            <area>0</area>
-          </network>
-        </process-id>
-      </ospf>
-    </router-ospf>
+    <ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+      <id>1</id>
+      <network>
+        <ip>10.10.0.0</ip>
+        <mask>0.0.255.255</mask>
+        <area>0</area>
+      </network>
+    </ospf>
   </router>
-  <vlan>
-    <vlan-list>
-      <id>10</id>
-      <name>DATA</name>
-    </vlan-list>
-    <vlan-list>
-      <id>20</id>
-      <name>VOICE</name>
-    </vlan-list>
-  </vlan>
 </native>

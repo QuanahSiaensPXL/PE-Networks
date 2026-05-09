@@ -1,5 +1,6 @@
+{% if vlans %}
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-  <vlan>
+  <vlan xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-vlan">
     {% for vlan in vlans %}
     <vlan-list>
       <id>{{ vlan.vlan_id }}</id>
@@ -8,3 +9,4 @@
     {% endfor %}
   </vlan>
 </native>
+{% endif %}

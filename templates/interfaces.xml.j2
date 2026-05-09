@@ -1,9 +1,11 @@
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
   <interface>
     {% for intf in interfaces %}
-    <GigabitEthernet>
-      <name>{{ intf.name | replace("GigabitEthernet", "") }}</name>
-      <description>{{ intf.description }}</description>
+    {% set itype = intf.name.rstrip('0123456789') %}
+    {% set inum = intf.name|replace(itype, '') %}
+    <{{ itype }}>
+      <name>{{ inum }}</name>
+      {% if intf.description %}<description>{{ intf.description }}</description>{% endif %}
       <ip>
         <address>
           <primary>
@@ -12,10 +14,8 @@
           </primary>
         </address>
       </ip>
-      {% if not intf.enabled %}
-      <shutdown/>
-      {% endif %}
-    </GigabitEthernet>
+      {% if intf.enabled == 0 %}<shutdown/>{% endif %}
+    </{{ itype }}>
     {% endfor %}
   </interface>
 </native>
