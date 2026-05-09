@@ -5,6 +5,81 @@ ondertekening van projectvoorstel v2 (28 april 2026). Format gebaseerd op
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), gegroepeerd per
 datum.
 
+## [2026-05-09] — Eerste live deploy CSR1000v + namespace-fixes
+
+### Verified
+
+- **End-to-end NETCONF-deploy van `R1-baseline.xml` naar de virtuele
+  CSR1000v** (192.168.253.131, IOS-XE 16.09.05) — deployment #8 in
+  `deployments`-tabel met `status=success` en `commit=2f66771`.
+- **Capability-aware pad geactiveerd**: server adverteert `:candidate`,
+  `:validate`, `:rollback-on-error`. Sequence: `lock(candidate)` →
+  `discard_changes` → `edit_config` → `validate` → `commit` → `unlock`.
+- **Idempotentie** bevestigd op DNS, NTP, OSPF, static route — herhaalde
+  deploys produceren geen wijzigingen aan de router-config.
+- **Router-side bewijs**: IOS-XE-syslog logde
+  `%LINEPROTO-5-UPDOWN: Loopback1/2 changed state to up` en
+  `%DMI-5-CONFIG_I: ... Configured from NETCONF/RESTCONF by cisco`.
+
+### Fixed — YANG-namespaces (schema gediscoverd via `get-config`)
+
+- **`fragments/08_dns.xml`** — `<address>` vervangen door `<no-vrf>` binnen
+  `<name-server>`. `Cisco-IOS-XE-native`-namespace volstaat (geen aparte
+  sub-namespace nodig).
+- **`fragments/07_ntp.xml`** — sub-namespace
+  `http://cisco.com/ns/yang/Cisco-IOS-XE-ntp` toegevoegd op `<server>`,
+  inhoud gewrapt in `<server-list>` met `<ip-address>` als leaf.
+- **`fragments/10_ospf.xml`** — oude `<router-ospf>/<ospf>/<process-id>`
+  vervangen door directe `<ospf xmlns="…Cisco-IOS-XE-ospf">/<id>` +
+  `<wildcard>` herbenoemd naar `<mask>`.
+
+### Changed — Platform-realiteit verwerkt
+
+- **`templates/vlans.xml.j2`** — `{% if vlans %}`-guard. CSR1000v heeft
+  geen VLAN-database (`show vlan` bestaat niet — alleen `show vlans` voor
+  dot1Q-tags). VLAN-rijen tijdelijk uit `seed.sql`; opnieuw evalueren op
+  ISR4221 dinsdag.
+- **`templates/interfaces.xml.j2`** — type-agnostisch: `<{{ itype }}>`-wrapper
+  uit interface-naam (`Loopback1` → `<Loopback>`, `GigabitEthernet2` →
+  `<GigabitEthernet>`).
+- **`db/seed.sql`** — Gi2/Gi3 vervangen door Loopback1/Loopback2. CSR1000v-VM
+  heeft maar één vNIC; fysieke Gi2/Gi3 bestaan niet en faalden met
+  `inconsistent value: Device refused one or more commands`. Loopbacks zijn
+  platform-onafhankelijk en bewijzen het concept even goed.
+- **`db/seed.sql`** — `mgmt_host` aangepast naar `192.168.253.131` (was
+  `.20`, nooit gesyncd).
+- **`fragments/01_hostname.xml`** — testresidu `R2` teruggezet naar `R1`.
+
+### Tests
+
+- **38 passed, 1 skipped** (`test_vlans_render_as_separate_list_entries`
+  geskipt: VLANs uitgefaseerd voor CSR — heractiveren bij ISR4221).
+- IP-assertion in `tests/test_db.py` bijgewerkt naar `.131`.
+
+### Discovery-methode
+
+In plaats van te gokken naar de juiste sub-namespace per fragment is de
+"router-as-source-of-truth"-aanpak gebruikt: manueel configureren via CLI,
+`ncclient.get_config(source='running')` met subtree-filter, output letterlijk
+spiegelen in onze fragments. Eén iteratie loste drie YANG-issues op en bracht
+twee platform-grenzen aan het licht.
+
+### Audit-trail (`deployments`-tabel)
+
+| # | Resultaat | Wat het ons leerde |
+|---|-----------|--------------------|
+| 1 | ✗ unknown-namespace name-server | DNS verkeerde sub-namespace |
+| 2-3 | ✗ unknown-element vlan-list | VLAN niet ondersteund door CSR |
+| 4 | ✓ dry-run | Namespace-fixes werken |
+| 5 | ✗ inconsistent value | Gi2/Gi3 fysiek niet aanwezig |
+| 6 | ✓ dry-run | Loopback-pivot syntactisch valid |
+| 7 | ✓ live | Eerste echte commit |
+| 8 | ✓ live | Definitieve baseline (hostname=R1) |
+
+Fail-rijen zijn evidence dat de pipeline failures correct logt.
+
+---
+
 ## [Unreleased]
 
 Werk-in-uitvoering richting oplevering 18 mei 2026.
