@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <hostname>R1</hostname>
+  <banner>
+    <motd>
+      <banner>Unauthorized access is prohibited!</banner>
+    </motd>
+  </banner>
+  <interface>
+    <Loopback>
+      <name>0</name>
+      <ip>
+        <address>
+          <primary>
+            <address>1.1.1.1</address>
+            <mask>255.255.255.255</mask>
+          </primary>
+        </address>
+      </ip>
+    </Loopback>
+    <Loopback>
+      <name>1</name>
+      <description>Loopback test 1</description>
+      <ip>
+        <address>
+          <primary>
+            <address>10.10.10.1</address>
+            <mask>255.255.255.255</mask>
+          </primary>
+        </address>
+      </ip>
+    </Loopback>
+    <Loopback>
+      <name>2</name>
+      <description>Loopback test 2</description>
+      <ip>
+        <address>
+          <primary>
+            <address>10.10.20.1</address>
+            <mask>255.255.255.255</mask>
+          </primary>
+        </address>
+      </ip>
+    </Loopback>
+  </interface>
+  <ntp>
+    <server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
+      <server-list>
+        <ip-address>129.6.15.28</ip-address>
+      </server-list>
+    </server>
+  </ntp>
+  <ip>
+    <name-server>
+      <no-vrf>8.8.8.8</no-vrf>
+    </name-server>
+    <route>
+      <ip-route-interface-forwarding-list>
+        <prefix>192.0.2.0</prefix>
+        <mask>255.255.255.0</mask>
+        <fwd-list>
+          <fwd>10.10.10.254</fwd>
+        </fwd-list>
+      </ip-route-interface-forwarding-list>
+    </route>
+  </ip>
+  <router>
+    <ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+      <id>1</id>
+      <network>
+        <ip>10.10.0.0</ip>
+        <mask>0.0.255.255</mask>
+        <area>0</area>
+      </network>
+    </ospf>
+  </router>
+</native>
