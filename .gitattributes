@@ -1,0 +1,29 @@
+# Normaliseer line-endings: LF in de repo, native in de werkmap
+* text=auto eol=lf
+
+# Expliciete tekstbestanden
+*.py            text eol=lf
+*.md            text eol=lf
+*.txt           text eol=lf
+*.xml           text eol=lf
+*.j2            text eol=lf
+*.sql           text eol=lf
+*.toml          text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+Dockerfile      text eol=lf
+.dockerignore   text eol=lf
+.gitignore      text eol=lf
+.env.example    text eol=lf
+
+# Binaire bestanden (nooit aanraken)
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.pdf    binary
+*.docx   binary
+*.xlsx   binary
+*.pptx   binary
+*.db     binary
+*.tar    binary
+*.zip    binary
