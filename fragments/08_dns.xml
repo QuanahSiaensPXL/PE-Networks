@@ -1,7 +1,8 @@
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
   <ip>
-    <name-server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ip">
-      <no-vrf>8.8.8.8</no-vrf>
+    <name-server>
+      <name-server-list>8.8.8.8</name-server-list>
+      <name-server-list>1.1.1.1</name-server-list>
     </name-server>
   </ip>
 </native>
