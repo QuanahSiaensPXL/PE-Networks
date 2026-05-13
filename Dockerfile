@@ -66,4 +66,4 @@ USER penet
 # CMD bevat de defaults; overschrijfbaar bij `docker run`.
 # ---------------------------------------------------------------------------
 ENTRYPOINT ["python", "-m"]
-CMD ["src.builder", "R1"]
+CMD ["src.builder", "R1", "--print"]

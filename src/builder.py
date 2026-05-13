@@ -118,3 +118,44 @@ def build(device_name: str) -> Path:
     output_path = OUTPUT_DIR / f"{device_name}-baseline.xml"
     output_path.write_text(xml_text, encoding="utf-8")
     return output_path
+
+# ----------------------------------------------------------------------
+# CLI — `python -m src.builder R1 [--print]`
+# ----------------------------------------------------------------------
+def main(argv=None):
+    """CLI-entrypoint: bouw baseline-XML voor een device.
+
+    Voorbeelden:
+        python -m src.builder R1            # schrijf naar disk
+        python -m src.builder R1 --print    # schrijf naar disk + dump naar stdout
+    """
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(
+        prog="python -m src.builder",
+        description="Bouw IOS-XE baseline-XML voor een device uit inventory.db.",
+    )
+    parser.add_argument(
+        "device",
+        help="Device-naam zoals in inventory.db (bv. R1).",
+    )
+    parser.add_argument(
+        "-p", "--print",
+        action="store_true",
+        dest="print_xml",
+        help="Print de gegenereerde XML naar stdout (naast schrijven naar disk).",
+    )
+    args = parser.parse_args(argv)
+
+    output_path = build(args.device)
+    print(f"[builder] Baseline geschreven: {output_path}", file=sys.stderr)
+
+    if args.print_xml:
+        sys.stdout.write(output_path.read_text(encoding="utf-8"))
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
