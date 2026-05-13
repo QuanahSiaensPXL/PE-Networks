@@ -85,6 +85,7 @@ def test_hostname_text_content_matches_device(patched_db_path):
     assert hostname.text == "R1"
 
 
+@pytest.mark.skip(reason="VLANs uitgefaseerd voor CSR1000v deploy — heractiveren wanneer ISR4221 VLAN-config krijgt")
 def test_vlans_render_as_separate_list_entries(patched_db_path):
     """Twee VLANs in DB → twee <vlan-list>-entries (niet één met 2 ids)."""
     output = builder.build("R1")
