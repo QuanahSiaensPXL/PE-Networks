@@ -1,7 +1,7 @@
 <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
   <banner>
     <motd>
-      <banner>Unauthorized access is prohibited!</banner>
+      <banner>Hallo</banner>
     </motd>
   </banner>
 </native>
