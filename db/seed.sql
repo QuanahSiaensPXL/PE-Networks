@@ -9,7 +9,7 @@ VALUES ('R1', '192.168.253.131', 830, 'iosxe', 'R1_NETCONF', 'CSR1000v lab-route
 -- Tabel-driven taken 4 & 5: interfaces
 INSERT INTO interfaces (device_id, name, description, ipv4_address, ipv4_netmask, enabled) VALUES
     ((SELECT id FROM devices WHERE name='R1'),
-     'GigabitEthernet2', 'Link naar VLAN 10 - data',  '10.10.10.1',  '255.255.255.0', 1),
+     'GigabitEthernet2', 'Link naar VLAN 10 - data',  '3.3.3.3',  '255.255.255.0', 1),
     ((SELECT id FROM devices WHERE name='R1'),
      'GigabitEthernet3', 'Link naar VLAN 20 - voice', '10.112.20.1',  '255.255.255.0', 1);
 
